@@ -1,26 +1,22 @@
-
 # ---- Import Necessary Python Modules ----
 import streamlit as st
 import fitz
 from PIL import Image
 import numpy as np
+import os
 import requests
 from io import BytesIO
 from bs4 import BeautifulSoup
 import tensorflow as tf
-import cv2
 
-model = tf.keras.models.load_model("cnn_model.h5") # loading pretrained weights
-LABELS = ['A Medical Image', 'Not a Medical Image']
+model = tf.keras.models.load_model("cnn_model.h5") # load
+LABELS = ['A Medical Image', 'Not A Medical Image']
 
 # preprocess image ---
 def preprocess_image(img):
-    resized = cv2.resize(img, (128, 128))
-    # Denoising
-    # denoised = cv2.fastNlMeansDenoisingColored(resized, None, h=10, hColor=10, templateWindowSize=7, searchWindowSize=21)
-    # Normalize
-    normalized = resized.astype('float32') / 255.0
-    return np.expand_dims(normalized, axis=0)
+    img = img.convert("RGB").resize((128, 128))
+    arr = np.array(img) / 255.0
+    return np.expand_dims(arr, axis=0)
 
 def predict_class(img):
     arr = preprocess_image(img)
@@ -28,6 +24,7 @@ def predict_class(img):
     label = LABELS[int(pred > 0.5)]
     return label, pred
 
+# --- Extract images from PDF ---
 def extract_images_from_pdf(uploaded_file):
     images = []
     doc = fitz.open(stream=uploaded_file.read(), filetype="pdf")
@@ -39,6 +36,7 @@ def extract_images_from_pdf(uploaded_file):
             images.append(img)
     return images
 
+# --- Extract images from URL ---
 def extract_images_from_url(url):
     images = []
     try:
@@ -70,8 +68,8 @@ if option == "Enter Web URL":
             st.image(img, caption="Extracted from URL", use_column_width=True)
             label, prob = predict_class(img)
             st.success(f"Prediction: **{label}** ({prob:.2f})")
-
 else:
+
     uploaded_file = st.file_uploader("Upload PDF with images", type="pdf")
     if uploaded_file:
         st.info("Extracting images from PDF...")
