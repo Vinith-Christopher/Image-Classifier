@@ -2,8 +2,9 @@
 
 This is a simple image classifier(Classifies the input image as a Medical/NonMedical image). The model used for this approach is a Convolutional Neural Network.
 The data used for training the CIFAR-10 and Hugging Face datasets.
-Links -- [https://huggingface.co/datasets/tanzuhuggingface/brainmri](url)
-      -- [https://www.tensorflow.org/api_docs/python/tf/keras/datasets/cifar10/load_data](url)
+**Links** 
+1) [https://huggingface.co/datasets/tanzuhuggingface/brainmri](url)
+2) [https://www.tensorflow.org/api_docs/python/tf/keras/datasets/cifar10/load_data](url)
 
 
 # Setup
@@ -16,10 +17,10 @@ Links -- [https://huggingface.co/datasets/tanzuhuggingface/brainmri](url)
 
 image ----> preprocessing ---->  SMOTE ----> CNN Model[Training] ----> Prediction[for Evaluation]
 
----> In preprocessing, images are resized to 128*128*3, and normalization is applied to pixel values are within range(In addition you can also add denoising, contrast enhancement)
----> Data is split into 80% training and 20% testing
----> SMOTE is applied to balance the data(to overcome unbalanced data)
----> Simple CNN model, where the used parameters are 
+1) In preprocessing, images are resized to 128*128*3, and normalization is applied to pixel values are within range(In addition you can also add denoising, contrast enhancement)
+2) Data is split into 80% training and 20% testing
+3) SMOTE is applied to balance the data(to overcome unbalanced data)
+4) Simple CNN model, where the used parameters are 
     Optimizer - 'adam', loss - 'binary_crossentropy', batch size-32, epochs-10, 
 
 # Evaluations
