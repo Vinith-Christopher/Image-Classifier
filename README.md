@@ -17,7 +17,7 @@ The data used for training the CIFAR-10 and Hugging Face datasets.
 
 image ----> preprocessing ---->  SMOTE ----> CNN Model[Training] ----> Prediction[for Evaluation]
 
-1) In preprocessing, images are resized to 128*128*3, and normalization is applied to pixel values are within range(In addition you can also add denoising, contrast enhancement)
+1) In preprocessing, images are resized to 128 x 128 x 3, and normalization is applied to pixel values are within range(In addition you can also add denoising, contrast enhancement)
 2) Data is split into 80% training and 20% testing
 3) SMOTE is applied to balance the data(to overcome unbalanced data)
 4) Simple CNN model, where the used parameters are 
